@@ -5,8 +5,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { IconButton } from "@material-ui/core";
 import { db } from "../firebase";
 import Modal from "./Modal";
+import { forwardRef } from "react";
 
-function TodoItem({ id, todo }) {
+const TodoItem = forwardRef(({id,todo}, ref) => {
   const [showModal, setShowModal] = useState(false);
   const [todoId, setTodoId] = useState(null);
 
@@ -24,7 +25,7 @@ function TodoItem({ id, todo }) {
   return (
     <>
       {showModal && <Modal setShowModal={setShowModal} id={todoId} />}
-      <Container>
+      <Container ref={ref}>
         <p>
           <span></span>
           {todo.text}
@@ -46,7 +47,7 @@ function TodoItem({ id, todo }) {
       </Container>
     </>
   );
-}
+});
 
 export default TodoItem;
 

@@ -5,6 +5,7 @@ import { IconButton } from "@material-ui/core";
 import TodoItem from "./TodoItem";
 import { auth, db } from "../firebase";
 import firebase from "firebase/app";
+import FlipMove from "react-flip-move";
 import { logout, selectUser } from "../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,7 +30,7 @@ function Home() {
       });
     return unsubscribe;
   }, []);
- 
+
   // add todo
   const addTodo = (e) => {
     e.preventDefault();
@@ -49,7 +50,6 @@ function Home() {
   return (
     <Container>
       <Contents>
-        
         {/* head section */}
         <Header>
           <h1>{user?.name} Todo List</h1>
@@ -76,9 +76,11 @@ function Home() {
 
         {/* todo list */}
         <TodoContainer>
-          {todos.map(({ id, todo }) => (
-            <TodoItem key={id} id={id} todo={todo} />
-          ))}
+          <FlipMove enterAnimation="fade" leaveAnimation="fade">
+            {todos.map(({ id, todo }) => (
+              <TodoItem key={id} id={id} todo={todo} />
+            ))}
+          </FlipMove>
         </TodoContainer>
 
         {/* logout  user */}
